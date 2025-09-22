@@ -1,11 +1,6 @@
 ---
-title: "charfriedman26.github.io"
+title: "index"
+image: picture/IMG_9566.jpeg
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+hello
