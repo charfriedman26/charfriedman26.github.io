@@ -1,6 +1,18 @@
 ---
-title: "index"
+title: "charlotte friedman"
 image: picture/IMG_9566.jpeg
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 17em
+  links:
+    - text: github
+      href: https://github.com/charfriedman.github.io
+    - text: email
+      href: csfc2023@mymail.pomona.edu
 ---
 
-hello
+------------------------------------------------------------------------
+
+welcome to data science project 1!
