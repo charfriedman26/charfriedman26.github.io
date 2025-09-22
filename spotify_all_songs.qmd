@@ -1,0 +1,40 @@
+---
+title: "spotify_all_songs"
+format: html
+description: |
+  Analysis of all Spotify songs data from TidyTuesday
+author: Jo Hardin
+date: February 12, 2025
+format: html
+---
+
+```{r}
+
+```
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+
+audio_features <- c(
+  "danceability", "energy", "key", "loudness", "mode",
+  "speechiness", "acousticness", "instrumentalness", "liveness",
+  "valence", "tempo", "duration_ms"
+)
+
+corr <- cor(spotify_songs[, audio_features], use = "complete.obs")
+
+melted_corr <- melt(corr)
+
+ggplot(melted_corr, aes(Var1, Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1,1), space = "Lab",
+                       name="Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  labs(x = "", y = "", title = "Correlation Heatmap of Audio Features")
+
+```

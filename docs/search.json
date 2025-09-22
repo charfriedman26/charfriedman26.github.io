@@ -12,5 +12,12 @@
     "title": "charlotte friedman",
     "section": "",
     "text": "welcome to data science project 1!"
+  },
+  {
+    "objectID": "taylor_all_songs.html",
+    "href": "taylor_all_songs.html",
+    "title": "all taylor swift songs",
+    "section": "",
+    "text": "library(readr) \ntaylor_all_songs &lt;- read_csv(\"taylor_all_songs.csv\")\n\nRows: 274 Columns: 29\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr   (7): album_name, track_name, artist, featuring, key_name, mode_name, k...\ndbl  (14): track_number, danceability, energy, key, loudness, mode, speechin...\nlgl   (4): ep, bonus_track, explicit, lyrics\ndate  (4): album_release, promotional_release, single_release, track_release\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nlibrary(ggplot2)\n\ntaylor_all_songs |&gt; \n  ggplot(aes(x = danceability, y = energy)) +\n  geom_point(aes(color = album_name), na.rm = TRUE) +\n  labs(\n    title = \"Danceability and Energy of All Taylor Songs\",\n    x = \"Danceability\", \n    y = \"Energy\"\n  ) + theme_gray()"
   }
 ]

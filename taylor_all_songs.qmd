@@ -1,0 +1,29 @@
+---
+title: "all taylor swift songs"
+description: |
+  Analysis of all Taylor Swift songs data from TidyTuesday
+author: Jo Hardin
+date: February 12, 2025
+format: html
+---
+
+```{r}
+
+library(readr) 
+taylor_all_songs <- read_csv("taylor_all_songs.csv")
+```
+
+```{r}
+
+library(ggplot2)
+
+taylor_all_songs |> 
+  ggplot(aes(x = danceability, y = energy)) +
+  geom_point(aes(color = album_name), na.rm = TRUE) +
+  labs(
+    title = "Danceability and Energy of All Taylor Songs",
+    x = "Danceability", 
+    y = "Energy"
+  ) + theme_gray()
+  
+```
