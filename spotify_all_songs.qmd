@@ -5,9 +5,15 @@ description: |
   Analysis of all Spotify songs data from TidyTuesday
 author: charlotte friedman
 date: February 12, 2025
+execute: 
+  warning: false
+  message: false
 ---
 
-```{r, echo=FALSE}
+This data set comes from the spotifyr R package, which is an API wrapper for Spotify’s Web API. It provides track-level and artist-level audio feature data that can be accessed directly from Spotify. The visualization displays the relationship between the average duration of the song by each year. It shows the average song length data for each year from prior to 1960 until 2020.
+
+
+```{r}
 
 library(readr)
 library(ggplot2)
@@ -26,3 +32,7 @@ spotify_songs |>
   labs(y = "Duration (minutes)", title = "Average song duration over time")
   
 ```
+
+The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-01-21/spotify_songs.csv
+
+The data comes from Spotify via the spotifyr R package, and was also authored by Charlie Thompson, Josiah Parry, Donal Phipps, and Tom Wolff.

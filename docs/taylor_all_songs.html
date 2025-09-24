@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jo Hardin">
+<meta name="author" content="charlotte friedman">
 <meta name="dcterms.date" content="2025-02-12">
 <meta name="description" content="Analysis of all Taylor Swift songs data from TidyTuesday">
 
@@ -129,14 +129,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./taylor_all_songs.html" aria-current="page"> 
-<span class="menu-text">all taylor swift songs</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">data viz</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
+        <li>
+    <a class="dropdown-item" href="./taylor_all_songs.html">
+ <span class="dropdown-text">taylor all songs</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./spotify_all_songs.html"> 
-<span class="menu-text">spotify all songs</span></a>
+        <li>
+    <a class="dropdown-item" href="./spotify_all_songs.html">
+ <span class="dropdown-text">spotify all songs</span></a>
   </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -171,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Jo Hardin </p>
+             <p>charlotte friedman </p>
           </div>
   </div>
     
@@ -190,33 +197,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>This data set comes from the taylor R package, which compiles a curated collection of Taylor Swift songs including lyrics and audio characteristics. The data originates from Genius and the Spotify API. The visualization displays the trend in average song duration over time, showing the average length of songs each year from before 1960 up through 2020.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>taylor_all_songs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"taylor_all_songs.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 274 Columns: 29
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr   (7): album_name, track_name, artist, featuring, key_name, mode_name, k...
-dbl  (14): track_number, danceability, energy, key, loudness, mode, speechin...
-lgl   (4): ep, bonus_track, explicit, lyrics
-date  (4): album_release, promotional_release, single_release, track_release
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>taylor_all_songs <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> danceability, <span class="at">y =</span> energy)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> album_name), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Danceability and Energy of All Taylor Songs"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Danceability"</span>, </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Energy"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>taylor_all_songs <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> danceability, <span class="at">y =</span> energy)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> album_name), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Danceability and Energy of All Taylor Songs"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Danceability"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Energy"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -225,6 +221,8 @@ date  (4): album_release, promotional_release, single_release, track_release
 </div>
 </div>
 </div>
+<p>The TidyTuesday data can be found at: <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv</a></p>
+<p>The taylor R package, created by W. Jake Thompson, offers a curated collection of Taylor Swift songs featuring both lyrics and audio attributes. The dataset draws its information from Genius and the Spotify API.</p>
 
 
 

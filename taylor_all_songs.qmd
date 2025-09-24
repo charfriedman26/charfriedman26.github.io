@@ -5,15 +5,20 @@ description: |
 author: charlotte friedman
 date: February 12, 2025
 format: html
+execute: 
+  warning: false
+  message: false
 ---
 
-```{r, echo=FALSE}
+This data set comes from the taylor R package, which compiles a curated collection of Taylor Swift songs including lyrics and audio characteristics. The data originates from Genius and the Spotify API. The visualization displays the trend in average song duration over time, showing the average length of songs each year from before 1960 up through 2020.
+
+```{r}
 
 library(readr) 
 taylor_all_songs <- read_csv("taylor_all_songs.csv")
 ```
 
-```{r, echo = FALSE}
+```{r}
 
 library(ggplot2)
 
@@ -27,3 +32,7 @@ taylor_all_songs |>
   ) + theme_gray()
 
 ```
+
+The TidyTuesday data can be found at: <https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv>
+
+The taylor R package, created by W. Jake Thompson, offers a curated collection of Taylor Swift songs featuring both lyrics and audio attributes. The dataset draws its information from Genius and the Spotify API.

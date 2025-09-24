@@ -10,10 +10,15 @@ website:
     left:
       - href: index.qmd
         text: home
+        
+      - text: data viz
+        menu:
+          - href: taylor_all_songs.html
+            text: taylor all songs
+          - href: spotify_all_songs.html
+            text: spotify all songs
 #      - about.qmd
 #      - resources.qmd
-      - taylor_all_songs.qmd
-      - spotify_all_songs.qmd
 
 format:
   html:
