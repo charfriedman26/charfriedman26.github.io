@@ -2,18 +2,18 @@
 title: "all taylor swift songs"
 description: |
   Analysis of all Taylor Swift songs data from TidyTuesday
-author: Jo Hardin
+author: charlotte friedman
 date: February 12, 2025
 format: html
 ---
 
-```{r}
+```{r, echo=FALSE}
 
 library(readr) 
 taylor_all_songs <- read_csv("taylor_all_songs.csv")
 ```
 
-```{r}
+```{r, echo = FALSE}
 
 library(ggplot2)
 
@@ -25,5 +25,5 @@ taylor_all_songs |>
     x = "Danceability", 
     y = "Energy"
   ) + theme_gray()
-  
+
 ```

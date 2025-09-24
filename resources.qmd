@@ -2,4 +2,3 @@
 title: "all my favorite resources!"
 format: html
 ---
-

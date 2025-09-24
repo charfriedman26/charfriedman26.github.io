@@ -9,9 +9,9 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
-      - resources.qmd
+        text: home
+#      - about.qmd
+#      - resources.qmd
       - taylor_all_songs.qmd
       - spotify_all_songs.qmd
 

@@ -1,40 +1,28 @@
 ---
-title: "spotify_all_songs"
+title: "spotify all songs"
 format: html
 description: |
   Analysis of all Spotify songs data from TidyTuesday
-author: Jo Hardin
+author: charlotte friedman
 date: February 12, 2025
-format: html
 ---
 
-```{r}
+```{r, echo=FALSE}
 
-```
-
-```{r}
-
+library(readr)
 library(ggplot2)
 library(dplyr)
-library(reshape2)
 
-audio_features <- c(
-  "danceability", "energy", "key", "loudness", "mode",
-  "speechiness", "acousticness", "instrumentalness", "liveness",
-  "valence", "tempo", "duration_ms"
-)
+spotify_songs <- read_csv("spotify_songs.csv")
 
-corr <- cor(spotify_songs[, audio_features], use = "complete.obs")
+spotify_songs <- spotify_songs |>
+  mutate(year = as.integer(substr(track_album_release_date, 1, 4)))
 
-melted_corr <- melt(corr)
-
-ggplot(melted_corr, aes(Var1, Var2, fill = value)) +
-  geom_tile(color = "white") +
-  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
-                       midpoint = 0, limit = c(-1,1), space = "Lab",
-                       name="Correlation") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
-  labs(x = "", y = "", title = "Correlation Heatmap of Audio Features")
-
+spotify_songs |> 
+  group_by(year) |> 
+  summarise(mean_duration = mean(duration_ms)/60000) |> 
+  ggplot(aes(x = year, y = mean_duration)) +
+  geom_line() +
+  labs(y = "Duration (minutes)", title = "Average song duration over time")
+  
 ```
