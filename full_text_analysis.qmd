@@ -94,3 +94,7 @@ obama_clean |>
   )
 
 ```
+
+Data Source:\
+The data used in this analysis come from the Barack Obama Twitter Archive, collected and published by the U.S. National Archives and Records Administration (NARA).\
+Available at: <https://github.com/ObamaWhiteHouse/twitter-archive>
