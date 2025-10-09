@@ -53,6 +53,13 @@ obama_clean <- obama_clean %>%
 obama_clean <- obama_clean %>%
   mutate(policy_related = str_detect(text, "healthcare|education|climate|economy"))
 
+
+```
+
+The line plot showing Obama’s tweets over time reveals clear patterns in his social media activity. Tweet frequency was generally higher during major political periods such as elections and key policy announcements. This suggests that Twitter was used strategically to engage the public during significant events, with noticeable spikes corresponding to campaign seasons and major legislative milestones.
+
+```{r}
+
 #graphing!
 
 colnames(obama_clean)
@@ -67,6 +74,11 @@ obama_clean |>
     x = "Date",
     y = "Number of Tweets"
   )
+```
+
+The bar chart of the most frequent hashtags highlights the dominant themes in Obama’s communication strategy. Hashtags such as #obamacare, #education, and #climatechange appear frequently, emphasizing the administration’s focus on healthcare, education, and environmental policy. This pattern demonstrates how social media served as a tool to reinforce political messaging and policy priorities in an accessible, public-facing format.
+
+```{r}
 
 obama_clean |> 
   unnest(hashtags) |> 
@@ -80,4 +92,5 @@ obama_clean |>
     x = "Hashtag",
     y = "Count"
   )
+
 ```
