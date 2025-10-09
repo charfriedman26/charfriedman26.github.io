@@ -17,6 +17,8 @@ website:
             text: taylor all songs
           - href: spotify_all_songs.html
             text: spotify all songs
+          - href: full_text_analysis.html
+            text: full text analysis
 #      - about.qmd
 #      - resources.qmd
 

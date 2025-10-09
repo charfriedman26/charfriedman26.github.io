@@ -1,0 +1,11 @@
+---
+title: "full text analysis"
+description: |
+  project 2 - completing a full text analysis
+author: charlotte friedman
+date: October 8, 2025
+format: html
+execute: 
+  warning: false
+  message: false
+---
