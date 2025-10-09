@@ -9,3 +9,75 @@ execute:
   warning: false
   message: false
 ---
+
+```{r}
+
+library(tidyverse)
+library(stringr)
+
+obama <- read_csv("tweets.csv")
+view(obama)
+
+obama_clean <- obama %>%
+  mutate(
+    text = str_replace_all(text, "https?://\\S+", ""),   # remove URLs
+    text = str_to_lower(text),                           # lowercase
+    text = str_squish(text)                              # remove extra spaces
+  )
+
+#using required string functions
+
+#detect if tweets mention America
+obama_clean <- obama_clean %>%
+  mutate(has_america = str_detect(text, "america|american"))
+
+#count hashtags per tweet
+obama_clean <- obama_clean %>%
+  mutate(num_hashtags = str_count(text, "#\\w+"))
+
+#extract the first hashtag (if any)
+obama_clean <- obama_clean %>%
+  mutate(first_hashtag = str_extract(text, "#\\w+"))
+
+#using regular expressions
+
+#extract all hashtags
+obama_clean <- obama_clean %>%
+  mutate(hashtags = str_extract_all(text, "#\\w+"))
+
+#detect tweets mentioning "President" followed by a word (lookbehind)
+obama_clean <- obama_clean %>%
+  mutate(president_topic = str_extract(text, "(?<=president )\\w+"))
+
+#detect tweets about policies (healthcare, education, etc.)
+obama_clean <- obama_clean %>%
+  mutate(policy_related = str_detect(text, "healthcare|education|climate|economy"))
+
+#graphing!
+
+colnames(obama_clean)
+
+obama_clean |> 
+  mutate(date = as.Date(timestamp)) |> 
+  count(date) |> 
+  ggplot(aes(x = date, y = n)) +
+  geom_line() +
+  labs(
+    title = "Obama Tweets Over Time",
+    x = "Date",
+    y = "Number of Tweets"
+  )
+
+obama_clean |> 
+  unnest(hashtags) |> 
+  count(hashtags, sort = TRUE) |> 
+  slice_head(n = 10) %>%
+  ggplot(aes(x = reorder(hashtags, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Top 10 Hashtags in Obama Tweets",
+    x = "Hashtag",
+    y = "Count"
+  )
+```
