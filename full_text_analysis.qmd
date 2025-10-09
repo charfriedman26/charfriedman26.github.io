@@ -25,8 +25,6 @@ obama_clean <- obama %>%
     text = str_squish(text)                              # remove extra spaces
   )
 
-#using required string functions
-
 #detect if tweets mention America
 obama_clean <- obama_clean %>%
   mutate(has_america = str_detect(text, "america|american"))
@@ -39,8 +37,6 @@ obama_clean <- obama_clean %>%
 obama_clean <- obama_clean %>%
   mutate(first_hashtag = str_extract(text, "#\\w+"))
 
-#using regular expressions
-
 #extract all hashtags
 obama_clean <- obama_clean %>%
   mutate(hashtags = str_extract_all(text, "#\\w+"))
@@ -52,7 +48,6 @@ obama_clean <- obama_clean %>%
 #detect tweets about policies (healthcare, education, etc.)
 obama_clean <- obama_clean %>%
   mutate(policy_related = str_detect(text, "healthcare|education|climate|economy"))
-
 
 ```
 
@@ -92,7 +87,6 @@ obama_clean |>
     x = "Hashtag",
     y = "Count"
   )
-
 ```
 
 Data Source:\
