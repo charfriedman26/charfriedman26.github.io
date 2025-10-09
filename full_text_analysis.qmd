@@ -15,6 +15,9 @@ execute:
 library(tidyverse)
 library(stringr)
 
+
+
+
 obama <- read_csv("tweets.csv")
 view(obama)
 
