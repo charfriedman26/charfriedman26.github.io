@@ -53,7 +53,7 @@
     "href": "vil_gtt.html#the-real-data",
     "title": "visual inference lineup — global temperature trends",
     "section": "The Real Data",
-    "text": "The Real Data\n\nggplot(global, aes(x = Year, y = temp_anomaly)) +\ngeom_line(color = \"firebrick\", linewidth = 1.1) +\ngeom_smooth(method = \"lm\", se = FALSE, color = \"black\", linetype = \"dashed\") +\nlabs(\ntitle = \"Global Temperature Anomalies (1880–2023)\",\nsubtitle = \"Data Source: NOAA / NASA GISTEMP\",\nx = \"Year\",\ny = \"Temperature Anomaly (°C)\"\n) +\ntheme_minimal()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nThis line chart shows how each year’s average global temperature compares to a long-term baseline. It looks like the temperatures are going up over time — but we’ll check if that pattern could just happen by chance."
+    "text": "The Real Data\n\nggplot(global, aes(x = Year, y = temp_anomaly)) +\ngeom_line(color = \"firebrick\", linewidth = 1.1) +\ngeom_smooth(method = \"lm\", se = FALSE, color = \"black\", linetype = \"dashed\") +\nlabs(\ntitle = \"Global Temperature Anomalies (1880–2023)\",\nsubtitle = \"Data Source: NOAA / NASA GISTEMP\",\nx = \"Year\",\ny = \"Temperature Anomaly (°C)\"\n) +\ntheme_minimal()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nThis line chart shows how each year’s average global temperature compares to a long-term baseline. It looks like the temperatures are going up over time, but we’ll check if that pattern could just happen by chance."
   },
   {
     "objectID": "vil_gtt.html#simulating-the-null-hypothesis",

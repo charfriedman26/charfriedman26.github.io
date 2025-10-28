@@ -1,6 +1,6 @@
 ---
 title: "visual inference lineup — global temperature trends"
-author: "Your Name"
+author: "charlotte friedman"
 date: "October 30, 2025"
 format: html
 ---
@@ -45,7 +45,7 @@ theme_minimal()
 
 ```
 
-This line chart shows how each year’s average global temperature compares to a long-term baseline. It looks like the temperatures are going up over time — but we’ll check if that pattern could just happen by chance.
+This line chart shows how each year’s average global temperature compares to a long-term baseline. It looks like the temperatures are going up over time, but we’ll check if that pattern could just happen by chance.
 
 ## Simulating the Null Hypothesis
 
