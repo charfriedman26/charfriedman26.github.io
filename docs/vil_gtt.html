@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#the-real-data" id="toc-the-real-data" class="nav-link" data-scroll-target="#the-real-data"><strong>The Real Data</strong></a></li>
+  <li><a href="#the-real-data" id="toc-the-real-data" class="nav-link" data-scroll-target="#the-real-data">The Real Data</a></li>
   <li><a href="#simulating-the-null-hypothesis" id="toc-simulating-the-null-hypothesis" class="nav-link" data-scroll-target="#simulating-the-null-hypothesis">Simulating the Null Hypothesis</a></li>
   <li><a href="#creating-the-lineup" id="toc-creating-the-lineup" class="nav-link" data-scroll-target="#creating-the-lineup">Creating the Lineup</a></li>
   <li><a href="#what-it-means" id="toc-what-it-means" class="nav-link" data-scroll-target="#what-it-means">What it means</a></li>
@@ -250,7 +250,7 @@ dbl (2): Year, Mean
 <p>To test the trend, I used something called a visual inference lineup. Basically, we compare the real data to a bunch of “fake” plots where the data have been shuffled. If people can spot the real plot, that means there’s likely a true trend.</p>
 </section>
 <section id="the-real-data" class="level2">
-<h2 class="anchored" data-anchor-id="the-real-data"><strong>The Real Data</strong></h2>
+<h2 class="anchored" data-anchor-id="the-real-data">The Real Data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(global, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> temp_anomaly)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"firebrick"</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>

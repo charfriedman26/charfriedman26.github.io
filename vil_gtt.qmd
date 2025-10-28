@@ -27,7 +27,7 @@ In this project, I looked at whether there’s a real upward trend in global tem
 
 To test the trend, I used something called a visual inference lineup. Basically, we compare the real data to a bunch of “fake” plots where the data have been shuffled. If people can spot the real plot, that means there’s likely a true trend.
 
-## **The Real Data**
+## The Real Data
 
 ```{r}
 
