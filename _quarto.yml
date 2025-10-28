@@ -19,6 +19,8 @@ website:
             text: spotify all songs
           - href: full_text_analysis.html
             text: full text analysis
+          - href: vil_gtt.html
+            text: visual inference lineup — global temperature trends
 #      - about.qmd
 #      - resources.qmd
 
