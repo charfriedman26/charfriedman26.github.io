@@ -94,6 +94,6 @@ The histogram displays the null sampling distribution of mean rating differences
 
 ### Step 4: Conclusions
 
-In this analysis, I conducted a permutation test to assess whether average IMDb ratings differ by reviewer gender. The simulation randomly reassigned gender labels and calculated 5,000 permuted differences, generating a null distribution. Comparing the observed difference to this distribution provided a p-value representing how unusual the observed data would be if gender and ratings were independent.
+I conducted a permutation test to assess whether average IMDb ratings differ by reviewer gender. The simulation randomly reassigned gender labels and calculated 5,000 permuted differences, generating a null distribution. Comparing the observed difference to this distribution provided a p-value representing how unusual the observed data would be if gender and ratings were independent.
 
 The permutation distribution is centered around 0, and our observed difference lies near that center rather than in the tails. This suggests that any small difference in average ratings by gender could easily occur by random chance if gender and ratings are unrelated. Therefore, we find no evidence to suggest that reviewer gender influences IMDb ratings for TV shows.
