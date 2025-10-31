@@ -2,8 +2,8 @@
 title: "male vs. female tv shows ratings"
 description: |
   project 3 - permutation test simulation study"
-author: "charlotte friedman"
-date: "October 30, 2025"
+author: charlotte friedman
+date: October 30, 2025
 format: html
 execute: 
   warning: false
