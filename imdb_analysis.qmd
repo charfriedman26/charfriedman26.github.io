@@ -90,7 +90,7 @@ perm_results |>
 
 ### Step 3: Interpretation:
 
-The histogram displays the null sampling distribution of mean rating differences when gender labels are randomly shuffled. The red dashed line marks the observed difference. If this observed difference lies far in the tails of the distribution, the result would be unlikely under the null hypothesis, suggesting that gender may indeed be related to average ratings.
+The histogram displays the null sampling distribution of mean rating differences when gender labels are randomly shuffled. The orange dashed line marks the observed difference. If this observed difference lies far in the tails of the distribution, the result would be unlikely under the null hypothesis, suggesting that gender may indeed be related to average ratings.
 
 ### Step 4: Conclusions
 
