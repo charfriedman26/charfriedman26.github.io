@@ -1,7 +1,7 @@
 ---
-title: "project4"
+title: "ethics and power"
 description: |
-  Ethics and Power in Data Science
+  project 4 - ethics: data and power
 author: charlotte friedman
 date: November 12, 2025
 format: html
