@@ -32,8 +32,6 @@ Reuters made clear that the training data consisted of ten years of résumés su
 
 #### 4. Was the Data Used in Unintended Ways Compared to the Original Context?
 
-(*Information from MIT Technology Review.*)
-
 MIT Technology Review highlighted how Amazon’s system drifted away from evaluating skills and instead learned to detect gender-related patterns. The original intent was to build an efficient tool to identify good candidates. Instead, the model used résumé patterns as proxies for gender, creating unintended discrimination. Features like participation in “women’s activities” or attendance at women’s colleges were never intended to harm candidates, but the algorithm treated them as negative signals simply because of patterns in historical data. This is a clear example of “function creep,” where data collected for one purpose (screening) evolves into unintended, ethically problematic inference (gender classification).
 
 #### Why This Matters: Who Benefits and Who Is Harmed?
