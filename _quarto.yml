@@ -21,6 +21,8 @@ website:
             text: full text analysis
           - href: imdb_analysis.html
             text: male vs. female tv shows ratings
+          - href: Proj4.html
+            text: ethics and power
 #      - about.qmd
 #      - resources.qmd
 

@@ -1,0 +1,45 @@
+---
+title: "project4"
+description: |
+  Ethics and Power in Data Science
+author: charlotte friedman
+date: November 12, 2025
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+### Ethical Dilemma: Amazon’s AI Hiring Algorithm and Bias Against Women
+
+#### Scenario Overview
+
+In 2018, Reuters reporter Jeffrey Dastin revealed that Amazon had built an internal machine-learning hiring tool intended to automatically score job applicants and identify the most promising candidates. According to Reuters, the system was trained on ten years of past résumés, most of which came from men, reflecting the male, dominated tech workforce. As a result, the algorithm learned to penalize résumés that included the word “women’s” (as in “women’s chess club” or “women’s coding team”) and even downgraded graduates of all-women colleges. Amazon attempted to remove biased rules, but the system continued finding proxy variables for gender. Eventually, the company scrapped the tool.
+
+The data science component of the story is the machine-learning model trained on historical résumé data. The ethical dilemma is that the model reproduced, and in some cases amplified, existing gender biases in hiring, raising questions about fairness, accountability, transparency, and the moral responsibility of companies deploying automated decision systems. Because Amazon never used the tool in actual hiring decisions, the harm was limited internally, but the case reveals how easily data-driven systems can encode systemic discrimination.
+
+#### 1. Permission Structure for Using the Data
+
+Reuters reported that Amazon fed the AI system thousands of historic résumés submitted to the company. These résumés were provided by job applicants for the explicit purpose of being evaluated by humans—not to train machine-learning systems. Although Amazon legally owned the résumé data once it was submitted, the ethical permission structure is more complicated. Applicants did not meaningfully consent to have their résumés repurposed for experimental algorithms. Even though Amazon stayed within its legal rights, the company failed to acknowledge the difference between legal data use and ethically appropriate data use, especially when the outcomes influence employment opportunities.
+
+#### 2. Consent and Whether Participants Knew Their Data Would Be Used in Research
+
+Neither Reuters nor MIT Technology Review found any indication that job applicants were told their résumés would be used to train or test AI models. Reuters emphasized that the system was “secret” within Amazon, with even some internal staff unaware of its scope. MIT Technology Review later noted that many companies assume that submitted résumés are “fair game” for internal analytics, but applicants rarely understand how their data will be used or what new inferences will be drawn from it. Because machine-learning research can generate unforeseeable new predictions, such as inferred gender or inferred likelihood of job performance, informed consent in the traditional sense was impossible. Applicants could not meaningfully consent to uses that did not exist when they applied.
+
+#### 3. Were the Data Representative, and Should We Analyze Data If We Don’t Understand Its Origins?
+
+Reuters made clear that the training data consisted of ten years of résumés submitted to Amazon, most from men. This is a classic example of non-representative training data. Because the tech industry has long been male-dominated, the “successful” résumés overwhelmingly came from men, and the algorithm learned a simple pattern: men were more likely to be hired in the past, therefore male-like résumés should be scored higher. The data were not representative of the applicant pool Amazon should want, nor of the qualified labor market. This shows why it is dangerous to build models without deeply examining how the data were collected and what biases they embed. Training on biased historical data essentially automates past discrimination.
+
+#### 4. Was the Data Used in Unintended Ways Compared to the Original Context?
+
+(*Information from MIT Technology Review.*)
+
+MIT Technology Review highlighted how Amazon’s system drifted away from evaluating skills and instead learned to detect gender-related patterns. The original intent was to build an efficient tool to identify good candidates. Instead, the model used résumé patterns as proxies for gender, creating unintended discrimination. Features like participation in “women’s activities” or attendance at women’s colleges were never intended to harm candidates, but the algorithm treated them as negative signals simply because of patterns in historical data. This is a clear example of “function creep,” where data collected for one purpose (screening) evolves into unintended, ethically problematic inference (gender classification).
+
+#### Why This Matters: Who Benefits and Who Is Harmed?
+
+The Amazon hiring algorithm matters because it shows how data science can shift power and responsibility in high-stakes decisions. Amazon potentially benefited by automating hiring, reducing recruiter workload, and building proprietary AI tools. But women and other underrepresented groups were disproportionately harmed, as the system learned to filter them out. These harms were not the result of malicious intent, but of historical bias baked into training data, combined with insufficient oversight and ethical review. The ethical violations served interests of efficiency and corporate innovation, not fairness. The case raises the broader moral question: Who is responsible when an automated system discriminates the engineers, the managers, the company, or the data itself? As this example shows, the responsibility lies with the organization that chooses to deploy (or even experiment with) algorithmic hiring without proper safeguards, transparency, or accountability frameworks.
+
+Dastin, J. (2018, October 10). *Amazon scraps secret AI recruiting tool that showed bias against women.* Reuters. https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G
+
+Hao, K. (2019, February 4). *Amazon’s AI hiring tool still has lessons for companies today.* MIT Technology Review. https://www.technologyreview.com/2019/02/04/137783/amazon-ai-hiring-bias-women/
