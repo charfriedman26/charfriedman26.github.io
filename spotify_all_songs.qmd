@@ -12,7 +12,6 @@ execute:
 
 This data set comes from the spotifyr R package, which is an API wrapper for Spotify’s Web API. It provides track-level and artist-level audio feature data that can be accessed directly from Spotify. The visualization displays the relationship between the average duration of the song by each year. It shows the average song length data for each year from prior to 1960 until 2020.
 
-
 ```{r}
 
 library(readr)

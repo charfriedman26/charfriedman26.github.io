@@ -23,6 +23,8 @@ website:
             text: male vs. female tv shows ratings
           - href: Proj4.html
             text: ethics and power
+          - href: sql_traffic_stops.html
+            text: sql traffic stops
 #      - about.qmd
 #      - resources.qmd
 
