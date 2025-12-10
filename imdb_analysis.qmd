@@ -97,10 +97,9 @@ This permutation test evaluates whether the difference in TV show ratings betwee
 
 ### References
 
-Hickey, D. (2019). *TidyTuesday: IMDb TV ratings by gender* [Data set].  
-GitHub – rfordatascience/tidytuesday.  
+Hickey, D. (2019). *TidyTuesday: IMDb TV ratings by gender* \[Data set\].\
+GitHub – rfordatascience/tidytuesday.\
 Retrieved from https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-01-08/readme.md
 
-The Economist. (2018, December). *Who rates TV shows?*  
+The Economist. (2018, December). *Who rates TV shows?*\
 Retrieved from https://www.economist.com/graphic-detail/2018/12/18/who-rates-tv-shows
-

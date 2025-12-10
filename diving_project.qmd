@@ -15,7 +15,6 @@ execute:
   message: false
 resources:
   - shiny_dive_app.png
-
 ---
 
 ```{r}
@@ -72,11 +71,12 @@ total_entries  = sum(n_times),
 
 # Project Overview
 
--   **Goal:**
-    Use past meet results to understand which types of dives are:
+-   **Goal:** Use past meet results to understand which types of dives are:
+
     -   scoring best, and most consistent.
 
     **Approach:**
+
     -   Scrape my DiveMeets profile
     -   Clean and categorize dives / Summarize performance by dive group
     -   Build a small **Shiny app** to explore results interactively
@@ -106,7 +106,6 @@ To make the data useful, I:
     -   Converted scores and counts from text to numeric
 -   Created a **dive group** variable from the first digit of the dive code:
     -   1 = Forward, 2 = Back, 3 = Reverse, 4 = Inward, 5 = Twist
-
 
 # Which Groups Score Best?
 
@@ -140,7 +139,6 @@ From the same summary:
     -   Which groups are both **high scoring** and **reliable**?
     -   Are there groups I perform well in but haven’t done very often?
 
-
 # Shiny Interactive Explorer
 
 I built a small **Shiny app** to make this analysis explorable:
@@ -156,7 +154,6 @@ I built a small **Shiny app** to make this analysis explorable:
 # Shiny Interactive Explorer (continued)
 
 ![Shiny interface with bar chart of dive scores](shiny_dive_app.png)
-
 
 # Key Takeaways
 
