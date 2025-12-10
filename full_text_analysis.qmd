@@ -6,52 +6,47 @@ author: charlotte friedman
 date: October 8, 2025
 format: html
 execute: 
+  echo: false
   warning: false
   message: false
 ---
+
+This project analyzes tweets posted by former President Barack Obama using data from the Barack Obama Twitter Archive. The goal is to explore what topics received attention, how messaging changed over time, and how political communication was shaped by hashtags and language patterns. I focus on three linguistic features: references to America, hashtag usage, and mentions of policy areas.
 
 ```{r}
 
 library(tidyverse)
 library(stringr)
 
-obama <- read_csv("tweets.csv")
-view(obama)
-
-obama_clean <- obama |> 
+obama_clean <- read_csv("tweets.csv") |>
   mutate(
+    # clean and normalize text
     text = str_replace_all(text, "https?://\\S+", ""),
-    text = str_to_lower(text), 
-    text = str_squish(text)
+    text = str_to_lower(text),
+    text = str_squish(text),
+    
+    # detect if tweets mention America
+    has_america = str_detect(text, "america|american"),
+    
+    # count hashtags per tweet
+    num_hashtags = str_count(text, "#\\w+"),
+    
+    # extract the first hashtag (if any)
+    first_hashtag = str_extract(text, "#\\w+"),
+    
+    # extract all hashtags
+    hashtags = str_extract_all(text, "#\\w+"),
+    
+    # detect policy-related tweets (simple keyword match)
+    policy_related = str_detect(text, "healthcare|education|climate|economy"),
+
+    # convert timestamp to Date
+    date = as.Date(timestamp)
   )
-
-#detect if tweets mention America
-obama_clean <- obama_clean |>
-  mutate(has_america = str_detect(text, "america|american"))
-
-#count hashtags per tweet
-obama_clean <- obama_clean |> 
-  mutate(num_hashtags = str_count(text, "#\\w+"))
-
-#extract the first hashtag (if any)
-obama_clean <- obama_clean |>
-  mutate(first_hashtag = str_extract(text, "#\\w+"))
-
-#extract all hashtags
-obama_clean <- obama_clean |> 
-  mutate(hashtags = str_extract_all(text, "#\\w+"))
-
-#detect tweets mentioning "President" followed by a word (lookbehind)
-obama_clean <- obama_clean |> 
-  mutate(president_topic = str_extract(text, "(?<=president )\\w+"))
-
-#detect tweets about policies (healthcare, education, etc.)
-obama_clean <- obama_clean |>
-  mutate(policy_related = str_detect(text, "healthcare|education|climate|economy"))
 
 ```
 
-The line plot showing Obama’s tweets over time reveals clear patterns in his social media activity. Tweet frequency was generally higher during major political periods such as elections and key policy announcements. This suggests that Twitter was used strategically to engage the public during significant events, with noticeable spikes corresponding to campaign seasons and major legislative milestones.
+The frequency of Obama’s tweets changes over time. There are visible spikes during major political moments such as elections, major speeches, and legislative pushes. This suggests Twitter served as a strategic communication tool rather than a constant personal feed, activity increased when public engagement was most important.
 
 ```{r}
 
@@ -71,7 +66,7 @@ obama_clean |>
   )
 ```
 
-The bar chart of the most frequent hashtags highlights the dominant themes in Obama’s communication strategy. Hashtags such as #obamacare, #education, and #climatechange appear frequently, emphasizing the administration’s focus on healthcare, education, and environmental policy. This pattern demonstrates how social media served as a tool to reinforce political messaging and policy priorities in an accessible, public-facing format.
+Hashtags help reveal Obama’s messaging priorities. The most common hashtags include policy topics such as #obamacare, #education, and #climatechange, emphasizing the administration’s key legislative and advocacy themes. Their high frequency indicates that social media played a role in promoting government initiatives and shaping public conversation around policy values.
 
 ```{r}
 
@@ -88,6 +83,8 @@ obama_clean |>
     y = "Count"
   )
 ```
+
+I used regular expressions to automatically detect whether tweets contained certain political themes. For example, searching for "america" and "american" helps identify nationalistic messaging, while hashtag extraction highlights how Obama’s team used platform-specific tools to coordinate public conversation. The policy-related keyword search allows me to isolate communication focused on healthcare, education, climate issues, and the economy, topics central to Obama’s presidency.
 
 Data Source:\
 The data used in this analysis come from the Barack Obama Twitter Archive, collected and published by the U.S. National Archives and Records Administration (NARA).\
