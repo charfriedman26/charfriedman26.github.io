@@ -110,5 +110,12 @@
     "title": "diving",
     "section": "",
     "text": "Diving + Shiny!\nThis project uses Data Science and interactive graphics to explore my performance as a springboard diver. Data comes directly from my DiveMeets profile and includes:\n\nDive codes\nDive descriptions\nHigh score and average score\nHow many times I’ve competed each dive\nDive group (Forward, Back, Reverse, Inward, Twist)\n\nThe project uses:\n\nR web scraping (rvest)\nData cleaning and wrangling (dplyr)\nShiny interactive visualization (ggplot + reactive filtering)\n\n\n\nStep 1 - Import and Scrape My Dive Stats\nI read data directly from DiveMeets using rvest, which converts HTML table data into an R data frame.\n\n\nStep 2 - Select and Clean the Dive Table\nDiveMeets had some formatting quirks, so I:\n\nremoved repeated header rows\ncorrected misplaced score columns\nkept only useful columns\n\n\n\nStep 3 - Add Dive Group Categories\nEvery dive code’s first digit tells the group:\n\n1 = Forward, 2 = Back, 3 = Reverse, 4 = Inward, 5 = Twist\n\n\nExtra Credit: Shiny Interactive Plot!\nI expanded this project with Shiny, which updates the visualization instantly based on user input.\n\nUsers can choose a dive group and explore my average scores dynamically.\nThis demonstrates:\n\nThe Shiny UI + server reactive framework\nInteractive filtering of my real athletic stats\nggplot updating automatically based on selections\n\n\n\nShiny applications not supported in static R Markdown documents\n\n\nNote: The Shiny application runs interactively in RStudio using shinyApp(ui, server) at the bottom of this document. Because Shiny is not supported in static HTML knitting, the interactive plot does not appear here, but is fully functional when running the document in RStudio."
+  },
+  {
+    "objectID": "diving_project.html#project-overview",
+    "href": "diving_project.html#project-overview",
+    "title": "Diving Performance Analysis",
+    "section": "Project Overview",
+    "text": "Project Overview\nGoal - Identify which dives score highest - Identify which dives are most consistent\nApproach - Scrape results from DiveMeets - Clean + categorize dives - Summarize performance by dive group - Build a Shiny explorer tool"
   }
 ]
