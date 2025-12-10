@@ -3,9 +3,10 @@ title: "all taylor swift songs"
 description: |
   Analysis of all Taylor Swift songs data from TidyTuesday
 author: charlotte friedman
-date: February 12, 2025
+date: September 24, 2025
 format: html
-execute: 
+execute:
+  echo: false
   warning: false
   message: false
 ---
@@ -33,6 +34,13 @@ taylor_all_songs |>
 
 ```
 
-The TidyTuesday data can be found at: <https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv>
+Data Accessed From:
 
-The taylor R package, created by W. Jake Thompson, offers a curated collection of Taylor Swift songs featuring both lyrics and audio attributes. The dataset draws its information from Genius and the Spotify API.
+R for Data Science Online Learning Community (2023). *TidyTuesday: Taylor Swift Songs Dataset* \[Data set\].\
+Retrieved from https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-10-17
+
+Original Data Source and Metadata via R Package:
+
+Thompson, W. J. (2023). *taylor: Taylor Swift Songs Data* (GitHub repository).\
+Retrieved from https://github.com/jthomasmock/taylor\
+This data originates from Genius: https://genius.com/ and Spotify API: https://developer.spotify.com/

@@ -6,13 +6,15 @@ author: charlotte friedman
 date: November 30, 2025
 format: html
 execute: 
+  echo: false
   warning: false
   message: false
+  cache: true
 ---
 
 ### Introduction
 
-In this project I compare traffic stops in California and Washington using data from the Stanford Open Policing Project. I focus on three questions: (1) how the number of stops has changed over time in each state, (2) how often searches occur for different racial groups, and (3) whether searches for different racial groups are equally likely to find contraband (hit rates) in each state. All data wrangling is done using SQL; R is used only for visualization and formatting.
+In this project I compare traffic stops in California, Washington, and Oregon using data from the Stanford Open Policing Project. I focus on three questions: (1) how the number of stops has changed over time in each state, (2) how often searches occur for different racial groups, and (3) whether searches for different racial groups are equally likely to find contraband (hit rates) in each state. All data wrangling is done using SQL; R is used only for visualization and formatting.
 
 ### Setup and SQL Connection
 
@@ -23,6 +25,7 @@ library(ggplot2)
 library(dplyr)
 library(DBI)
 library(RMariaDB)
+library(scales)
 
 con_traffic <- dbConnect(
   RMariaDB::MariaDB(),
@@ -38,29 +41,43 @@ dbListTables(con_traffic)
 
 ### Analysis 1
 
-```{sql connection=con_traffic, output.var="stops_by_year_state"}
+```{sql connection=con_traffic, cache=TRUE, output.var="stops_by_year_state"}
 
 SELECT year, state, n_stops
 FROM (
-SELECT
-YEAR(date) AS year,
-'CA' AS state,
-COUNT(*) AS n_stops
-FROM ca_statewide_2023_01_26
-WHERE date BETWEEN '2010-01-01' AND '2020-12-31'
-GROUP BY YEAR(date)
+  -- California
+  SELECT
+    YEAR(date) AS year,
+    'CA'       AS state,
+    COUNT(*)   AS n_stops
+  FROM ca_statewide_2023_01_26
+  WHERE date BETWEEN '2010-01-01' AND '2013-12-31'
+  GROUP BY YEAR(date)
 
-UNION ALL
+  UNION ALL
 
-SELECT
-YEAR(date) AS year,
-'WA' AS state,
-COUNT(*) AS n_stops
-FROM wa_statewide_2020_04_01
-WHERE date BETWEEN '2010-01-01' AND '2020-12-31'
-GROUP BY YEAR(date)
+  -- Washington
+  SELECT
+    YEAR(date) AS year,
+    'WA'       AS state,
+    COUNT(*)   AS n_stops
+  FROM wa_statewide_2020_04_01
+  WHERE date BETWEEN '2010-01-01' AND '2013-12-31'
+  GROUP BY YEAR(date)
+
+  UNION ALL
+
+  -- Oregon
+  SELECT
+    YEAR(date) AS year,
+    'OR'       AS state,
+    COUNT(*)   AS n_stops
+  FROM or_statewide_2020_04_01
+  WHERE date BETWEEN '2010-01-01' AND '2013-12-31'
+  GROUP BY YEAR(date)
 ) AS combined
 ORDER BY year, state;
+
 
 ```
 
@@ -69,15 +86,20 @@ stops_by_year_state |>
   ggplot(aes(x = year, y = n_stops, color = state)) +
   geom_line() +
   geom_point() +
+  scale_y_continuous(labels = label_number(scale = 1e-6,
+                                         suffix = "M",
+                                         accuracy = 1))+
   labs(
-    title = "Traffic Stops Per Year: California vs Washington",
-    x = "Year",
-    y = "Number of Stops",
+    title = "Traffic Stops Per Year: California vs Washington vs Oregon",
+    x     = "Year",
+    y     = "Number of Stops",
     color = "State")
 
 ```
 
-Overall, California has many more traffic stops than Washington each year. From 2010 to 2018, the number of stops in California decreases quite a bit, especially after 2014, while Washington’s numbers stay relatively stable with only small ups and downs. This suggests that either enforcement practices or driving patterns changed more in California than in Washington over this time period.
+Overall, California has many more traffic stops than Washington and Oregon each year. California has over five million stops annually in this period, while Washington has around one million and Oregon has fewer than half a million. California experiences a noticeable decline in stops after 2011, while Washington and Oregon remain relatively stable across 2010–2013.
+
+These patterns could reflect differences in enforcement strategies, driving behavior, or recordingpractices across states. Because each state varies in how and when they began contributing data, some of the differences in trends may arise from the availability and completeness of the data itself rather than only real-world changes in policing.
 
 ### Analysis 2
 
@@ -150,6 +172,7 @@ stops_month |>
   ggplot(aes(x = month, y = n_stops, color = state)) +
   geom_line() +
   geom_point() +
+  scale_x_continuous(breaks = 1:12) +
   labs(
     title = "Traffic Stops by Month: CA vs WA",
     x = "Month of Year",
@@ -163,8 +186,10 @@ This plot compares the number of stops by month for California and Washington. B
 
 ### Conclusion
 
-In this project, I used SQL to wrangle traffic stop data from California and Washington in order to compare patterns over time, across races, and across the calendar year. The first analysis showed that California has far more traffic stops than Washington, and that California’s stops declined substantially between 2010 and 2018 while Washington’s stayed relatively stable. The second analysis found that Black and Hispanic drivers are searched at higher rates than white and Asian/Pacific Islander drivers in both states, with Washington generally having slightly higher search rates overall. Finally, the third analysis showed that both states have more stops in summer and fewer in winter, suggesting similar seasonal dynamics despite very different total volumes. Together, these results illustrate how SQL can be used to explore large policing datasets and highlight differences in traffic stop practices across states and groups.
+In this project, I used SQL to wrangle traffic stop data from California, Washington, and Oregon in order to compare patterns over time, across races, and across the calendar year. The first analysis showed that California has far more traffic stops than Washington and Oregon, as Washington and Oregon remain relatively stable across 2010–2013. The second analysis found that Black and Hispanic drivers are searched at higher rates than white and Asian/Pacific Islander drivers in both states, with Washington generally having slightly higher search rates overall. Finally, the third analysis showed that both states have more stops in summer and fewer in winter, suggesting similar seasonal dynamics despite very different total volumes. Together, these results illustrate how SQL can be used to explore large policing datasets and highlight differences in traffic stop practices across states and groups.
 
 ### Source
 
 Data used in this project come from the Stanford Open Policing Project: <https://openpolicing.stanford.edu/data/>
+
+Pierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States.” *Nature Human Behaviour*, 1–10.

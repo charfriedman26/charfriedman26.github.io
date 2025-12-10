@@ -4,8 +4,9 @@ format: html
 description: |
   Analysis of all Spotify songs data from TidyTuesday
 author: charlotte friedman
-date: February 12, 2025
+date: September 24, 2025
 execute: 
+  echo: false
   warning: false
   message: false
 ---
@@ -32,6 +33,13 @@ spotify_songs |>
   
 ```
 
-The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-01-21/spotify_songs.csv
+Data Accessed From:
 
-The data comes from Spotify via the spotifyr R package, and was also authored by Charlie Thompson, Josiah Parry, Donal Phipps, and Tom Wolff.
+R for Data Science Online Learning Community (2020). *TidyTuesday: Spotify Songs Dataset* \[Data set\].\
+Retrieved from https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-01-21
+
+Original Data Source and Metadata via R Package:
+
+Thompson, C., Parry, J., Phipps, D., & Wolff, T. (2019). *spotifyr: R Wrapper for the ‘Spotify’ Web API* (R package version 2.2.4).\
+Available at https://www.rcharlie.com/spotifyr/\
+Audio features retrieved from Spotify Web API: https://developer.spotify.com/

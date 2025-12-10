@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="charlotte friedman">
-<meta name="dcterms.date" content="2025-02-12">
+<meta name="dcterms.date" content="2025-09-24">
 <meta name="description" content="Analysis of all Taylor Swift songs data from TidyTuesday">
 
 <title>all taylor swift songs – charlotte friedman</title>
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -142,6 +108,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./spotify_all_songs.html">
  <span class="dropdown-text">spotify all songs</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./full_text_analysis.html">
+ <span class="dropdown-text">full text analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./imdb_analysis.html">
+ <span class="dropdown-text">male vs.&nbsp;female tv shows ratings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Proj4.html">
+ <span class="dropdown-text">ethics and power</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sql_traffic_stops.html">
+ <span class="dropdown-text">sql traffic stops</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -185,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 12, 2025</p>
+      <p class="date">September 24, 2025</p>
     </div>
   </div>
   
@@ -199,20 +181,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>This data set comes from the taylor R package, which compiles a curated collection of Taylor Swift songs including lyrics and audio characteristics. The data originates from Genius and the Spotify API. The visualization displays the trend in average song duration over time, showing the average length of songs each year from before 1960 up through 2020.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>taylor_all_songs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"taylor_all_songs.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>taylor_all_songs <span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> danceability, <span class="at">y =</span> energy)) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> album_name), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Danceability and Energy of All Taylor Songs"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Danceability"</span>, </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Energy"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -221,8 +189,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The TidyTuesday data can be found at: <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-10-17/taylor_all_songs.csv</a></p>
-<p>The taylor R package, created by W. Jake Thompson, offers a curated collection of Taylor Swift songs featuring both lyrics and audio attributes. The dataset draws its information from Genius and the Spotify API.</p>
+<p>Data Accessed From:</p>
+<p>R for Data Science Online Learning Community (2023). <em>TidyTuesday: Taylor Swift Songs Dataset</em> [Data set].<br>
+Retrieved from https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-10-17</p>
+<p>Original Data Source and Metadata via R Package:</p>
+<p>Thompson, W. J. (2023). <em>taylor: Taylor Swift Songs Data</em> (GitHub repository).<br>
+Retrieved from https://github.com/jthomasmock/taylor<br>
+This data originates from Genius: https://genius.com/ and Spotify API: https://developer.spotify.com/</p>
 
 
 
