@@ -28,6 +28,7 @@ website:
 #      - about.qmd
 #      - resources.qmd
 
+
 format:
   html:
     theme: brite
