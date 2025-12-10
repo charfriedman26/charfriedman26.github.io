@@ -32,7 +32,8 @@ The project uses:
 I read data directly from DiveMeets using rvest, which converts HTML table data into an R data frame.
 
 ```{r}
-#| echo: false
+
+
 library(tidyverse)
 library(rvest)
 library(purrr)
@@ -46,7 +47,7 @@ url <- "https://secure.meetcontrol.com/divemeets/system/profile.php?number=67809
 
 # checking if this is allowed
 
-try(paths_allowed("https://secure.meetcontrol.com/divemeets/system/profile.php?number=67809"))
+# try(paths_allowed("https://secure.meetcontrol.com/divemeets/system/profile.php?number=67809"))
 
 # 1 - read html and grab all tables on page
 
@@ -56,11 +57,11 @@ tables <- page |>  html_table(fill = TRUE)
 
 # 2 - see what tables i got
 
-length(tables)
+# length(tables)
 
 # 3 - view the column names of each table to find the one with my dive stats
 
-map(tables, ~ colnames(.x))
+# map(tables, ~ colnames(.x))
 
 
 ```
@@ -78,10 +79,6 @@ DiveMeets had some formatting quirks, so I:
 
 # 4 - select the dives table
 dives_raw <- tables[[3]]
-
-# take a quick look !
-glimpse(dives_raw)
-
 
 # renaming cols to something simpler
 colnames(dives_raw) <- c("dive_height", "description", "high_score", "avg_score", "n_times", "NAcol")
@@ -112,7 +109,6 @@ dives <- dives_raw |>
   # 3. Keep only the useful columns
   select(dive_height, description, high_score, avg_score, n_times)
 
-glimpse(dives)
 
 ```
 
@@ -141,7 +137,6 @@ dives <- dives |>
   ) |> 
   filter(!is.na(group))
 
-glimpse(dives)
 
 ```
 
@@ -206,3 +201,5 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+
+Note: The Shiny application runs interactively in RStudio using `shinyApp(ui, server)` at the bottom of this document. Because Shiny is not supported in static HTML knitting, the interactive plot does not appear here, but is fully functional when running the document in RStudio.

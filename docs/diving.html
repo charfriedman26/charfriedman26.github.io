@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="charlotte friedman">
+<meta name="dcterms.date" content="2025-12-09">
+<meta name="description" content="project 6 - diving analysis">
 
-<title>charlotte friedman</title>
+<title>diving – charlotte friedman</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -88,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -137,34 +141,116 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#diving-shiny" id="toc-diving-shiny" class="nav-link active" data-scroll-target="#diving-shiny">Diving + Shiny!</a></li>
+  <li><a href="#step-1---import-and-scrape-my-dive-stats" id="toc-step-1---import-and-scrape-my-dive-stats" class="nav-link" data-scroll-target="#step-1---import-and-scrape-my-dive-stats">Step 1 - Import and Scrape My Dive Stats</a></li>
+  <li><a href="#step-2---select-and-clean-the-dive-table" id="toc-step-2---select-and-clean-the-dive-table" class="nav-link" data-scroll-target="#step-2---select-and-clean-the-dive-table">Step 2 - Select and Clean the Dive Table</a></li>
+  <li><a href="#step-3---add-dive-group-categories" id="toc-step-3---add-dive-group-categories" class="nav-link" data-scroll-target="#step-3---add-dive-group-categories">Step 3 - Add Dive Group Categories</a></li>
+  <li><a href="#extra-credit-shiny-interactive-plot" id="toc-extra-credit-shiny-interactive-plot" class="nav-link" data-scroll-target="#extra-credit-shiny-interactive-plot">Extra Credit: Shiny Interactive Plot!</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla column-page">
-  <img src="picture/IMG_9566.jpeg" class="about-image
-  round " style="height: 17em; width: 17em;">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">charlotte friedman</h1>
+<h1 class="title">diving</h1>
 </div>
-<div class="quarto-title-meta column-page">
+
+<div>
+  <div class="description">
+    <p>project 6 - diving analysis</p>
   </div>
-</header><main class="content column-page" id="quarto-document-content">
-<hr>
-<p>welcome to my data science website! i am a current junior at pomona college majoring in cognitive science with a concentration in human-centered design (which includes data science)! outside academics, i love playing with my dog alfie, listening to music while driving, and skiing.</p>
+</div>
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://github.com/charfriedman.github.io" class="about-link" rel="" target="">
-     <span class="about-link-text">github</span>
-  </a>
-  <a href="/csfc2023@mymail.pomona.edu" class="about-link" rel="" target="">
-     <span class="about-link-text">email</span>
-  </a>
+<div class="quarto-title-meta column-page-left">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>charlotte friedman </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 9, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="diving-shiny" class="level3">
+<h3 class="anchored" data-anchor-id="diving-shiny">Diving + Shiny!</h3>
+<p>This project uses Data Science and interactive graphics to explore my performance as a springboard diver. Data comes directly from my DiveMeets profile and includes:</p>
+<ul>
+<li>Dive codes</li>
+<li>Dive descriptions</li>
+<li>High score and average score</li>
+<li>How many times I’ve competed each dive</li>
+<li>Dive group (Forward, Back, Reverse, Inward, Twist)</li>
+</ul>
+<p>The project uses:</p>
+<ul>
+<li>R web scraping (rvest)</li>
+<li>Data cleaning and wrangling (dplyr)</li>
+<li>Shiny interactive visualization (ggplot + reactive filtering)</li>
+</ul>
+</section>
+<section id="step-1---import-and-scrape-my-dive-stats" class="level3">
+<h3 class="anchored" data-anchor-id="step-1---import-and-scrape-my-dive-stats">Step 1 - Import and Scrape My Dive Stats</h3>
+<p>I read data directly from DiveMeets using rvest, which converts HTML table data into an R data frame.</p>
+</section>
+<section id="step-2---select-and-clean-the-dive-table" class="level3">
+<h3 class="anchored" data-anchor-id="step-2---select-and-clean-the-dive-table">Step 2 - Select and Clean the Dive Table</h3>
+<p>DiveMeets had some formatting quirks, so I:</p>
+<ul>
+<li>removed repeated header rows</li>
+<li>corrected misplaced score columns</li>
+<li>kept only useful columns</li>
+</ul>
+</section>
+<section id="step-3---add-dive-group-categories" class="level3">
+<h3 class="anchored" data-anchor-id="step-3---add-dive-group-categories">Step 3 - Add Dive Group Categories</h3>
+<p>Every dive code’s first digit tells the group:<br>
+</p>
+<p>1 = Forward, 2 = Back, 3 = Reverse, 4 = Inward, 5 = Twist</p>
+</section>
+<section id="extra-credit-shiny-interactive-plot" class="level3">
+<h3 class="anchored" data-anchor-id="extra-credit-shiny-interactive-plot">Extra Credit: Shiny Interactive Plot!</h3>
+<p>I expanded this project with Shiny, which updates the visualization instantly based on user input.<br>
+</p>
+<p>Users can choose a dive group and explore my average scores dynamically.</p>
+<p>This demonstrates:</p>
+<ul>
+<li>The Shiny UI + server reactive framework</li>
+<li>Interactive filtering of <em>my</em> real athletic stats</li>
+<li>ggplot updating automatically based on selections</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p></p><div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div><p></p>
 </div>
 </div>
- <!-- /main -->
+<p>Note: The Shiny application runs interactively in RStudio using <code>shinyApp(ui, server)</code> at the bottom of this document. Because Shiny is not supported in static HTML knitting, the interactive plot does not appear here, but is fully functional when running the document in RStudio.</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -185,6 +271,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
