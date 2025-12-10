@@ -10,7 +10,6 @@ website:
     left:
       - href: index.qmd
         text: home
-        
       - text: data viz
         menu:
           - href: taylor_all_songs.html
@@ -20,17 +19,18 @@ website:
           - href: full_text_analysis.html
             text: full text analysis
           - href: imdb_analysis.html
-            text: male vs. female tv shows ratings
+            text: imdb analysis
           - href: Proj4.html
             text: ethics and power
           - href: sql_traffic_stops.html
             text: sql traffic stops
-            
-      - text: diving project
+      - text: diving
+        menu:
           - href: diving.html
             text: diving analysis using shiny
           - href: diving_project.html
-          - text: diving presentation
+            text: diving presentation
+
 #      - about.qmd
 #      - resources.qmd
 

@@ -155,7 +155,7 @@ I built a small **Shiny app** to make this analysis explorable:
 
 # Shiny Interactive Explorer (continued)
 
-![Interactive Shiny Dive Explorer](shiny_dive_app.png)
+![Shiny interface with bar chart of dive scores](shiny_dive_app.png)
 
 
 # Key Takeaways
