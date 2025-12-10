@@ -8,7 +8,7 @@
 
 <meta name="author" content="charlotte friedman">
 <meta name="dcterms.date" content="2025-10-30">
-<meta name="description" content="project 3 - permutation test simulation study”">
+<meta name="description" content="project 3 - permutation test simulation study">
 
 <title>male vs.&nbsp;female tv shows ratings – charlotte friedman</title>
 <style>
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -154,6 +120,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./Proj4.html">
  <span class="dropdown-text">ethics and power</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./sql_traffic_stops.html">
+ <span class="dropdown-text">sql traffic stops</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -176,6 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-2-setup-and-data-cleaning" id="toc-step-2-setup-and-data-cleaning" class="nav-link" data-scroll-target="#step-2-setup-and-data-cleaning">Step 2: Setup and Data Cleaning</a></li>
   <li><a href="#step-3-interpretation" id="toc-step-3-interpretation" class="nav-link" data-scroll-target="#step-3-interpretation">Step 3: Interpretation:</a></li>
   <li><a href="#step-4-conclusions" id="toc-step-4-conclusions" class="nav-link" data-scroll-target="#step-4-conclusions">Step 4: Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    <p>project 3 - permutation test simulation study”</p>
+    <p>project 3 - permutation test simulation study</p>
   </div>
 </div>
 
@@ -218,86 +189,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="step-1-research-question-and-context" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-research-question-and-context">Step 1: Research Question and Context</h3>
-<p>In this project, I investigate whether male and female reviewers give different IMDb ratings to TV shows. I use the “IMDb_Economist_tv_ratings.csv” dataset from the TidyTuesday project (Week 2, 2019). This dataset contains TV show titles, average IMDb ratings, and air dates collected by The Economist from IMDb.</p>
-<p>My goal is to simulate a null model in which reviewer gender has no relationship with rating. To do this, I will assign random gender labels to reviewers, calculate mean differences, and build a null sampling distribution. By comparing the observed mean difference to the null distribution, I can assess how likely the observed difference would be if gender had no effect on ratings.</p>
+<p>In this project, I investigate whether IMDb ratings for TV shows differ between male-identifying and female-identifying reviewers in the larger population of TV viewers, not just in this dataset. The “IMDb_Economist_tv_ratings.csv” dataset comes from The Economist (via TidyTuesday Week 2, 2019) and includes TV show titles, average IMDb ratings, and gender-split rating data.</p>
+<p>We want to understand whether the small differences observed in this dataset could reasonably occur from random chance alone. To answer this, we simulate a world where gender has no role in how people rate TV shows. Under that null hypothesis, any difference we see in average ratings would simply be due to natural variability from sample to sample.</p>
+<p>Our goal:<br>
+“Is the difference we observe in our dataset larger than we would normally expect if the underlying rating tendency were the same for everyone?”</p>
 </section>
 <section id="step-2-setup-and-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-setup-and-data-cleaning">Step 2: Setup and Data Cleaning</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"IMDb_Economist_tv_ratings.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(tv)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#constructing the gender comparison dataset</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ratings_sim <span class="ot">&lt;-</span> tv <span class="sc">|&gt;</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(av_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>), </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#observed statistic: difference in mean ratings</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ratings_sim <span class="sc">|&gt;</span> </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_rating =</span> <span class="fu">mean</span>(av_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">obs_diff =</span> <span class="fu">diff</span>(mean_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.03695642</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#defining a permutation function</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>perm_data <span class="ot">&lt;-</span> <span class="cf">function</span>(rep, data){</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gender_perm =</span> <span class="fu">sample</span>(gender, <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gender_perm) <span class="sc">|&gt;</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean_rating =</span> <span class="fu">mean</span>(av_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">perm_diff =</span> <span class="fu">diff</span>(mean_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>()</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#simulate the null sampling distribution</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>num_exper <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>perm_results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span>num_exper, perm_data, <span class="at">data =</span> ratings_sim)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#p value</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="ot">&lt;-</span> ratings_sim <span class="sc">|&gt;</span> </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span> </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_rating =</span> <span class="fu">mean</span>(av_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">diff =</span> <span class="fu">diff</span>(mean_rating)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(perm_results <span class="sc">&gt;=</span> obs_diff)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9056</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualizing the null distribution</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>perm_results <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> perm_results)) <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> obs_diff), <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Simulated difference in mean rating (Female - Male)"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sampling distribution under the null hypothesis"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"No relationship between reviewer gender and rating"</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="imdb_analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="imdb_analysis_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -305,12 +216,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-3-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-interpretation">Step 3: Interpretation:</h3>
-<p>The histogram displays the null sampling distribution of mean rating differences when gender labels are randomly shuffled. The orange dashed line marks the observed difference. If this observed difference lies far in the tails of the distribution, the result would be unlikely under the null hypothesis, suggesting that gender may indeed be related to average ratings.</p>
+<p>The histogram shows what differences in average ratings we would expect just by chance if gender were unrelated to TV show ratings in the broader viewer population. The orange dashed line marks the difference we observed in the dataset. Because the observed value lies near the center of the simulated null distribution, differences of this size would be very common even if gender truly had no effect. Therefore, our observed difference is not unusual under the null hypothesis.</p>
 </section>
 <section id="step-4-conclusions" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-conclusions">Step 4: Conclusions</h3>
-<p>I conducted a permutation test to assess whether average IMDb ratings differ by reviewer gender. The simulation randomly reassigned gender labels and calculated 5,000 permuted differences, generating a null distribution. Comparing the observed difference to this distribution provided a p-value representing how unusual the observed data would be if gender and ratings were independent.</p>
-<p>The permutation distribution is centered around 0, and our observed difference lies near that center rather than in the tails. This suggests that any small difference in average ratings by gender could easily occur by random chance if gender and ratings are unrelated. Therefore, we find no evidence to suggest that reviewer gender influences IMDb ratings for TV shows.</p>
+<p>This permutation test evaluates whether the difference in TV show ratings between male and female reviewers seen in this dataset is larger than what would be expected from normal random variation. Because the observed difference aligns closely with the null distribution, we do not have evidence that rating tendencies differ by gender in the broader population of IMDb users. This does not prove that gender will never matter, rather, based on the dataset available, any differences we observe could easily be explained by chance alone.</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<p>Hickey, D. (2019). <em>TidyTuesday: IMDb TV ratings by gender</em> [Data set].<br>
+GitHub – rfordatascience/tidytuesday.<br>
+Retrieved from https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-01-08/readme.md</p>
+<p>The Economist. (2018, December). <em>Who rates TV shows?</em><br>
+Retrieved from https://www.economist.com/graphic-detail/2018/12/18/who-rates-tv-shows</p>
 
 
 </section>

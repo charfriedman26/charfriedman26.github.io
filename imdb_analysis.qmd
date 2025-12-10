@@ -1,32 +1,31 @@
 ---
 title: "male vs. female tv shows ratings"
 description: |
-  project 3 - permutation test simulation study"
+  project 3 - permutation test simulation study
 author: charlotte friedman
 date: October 30, 2025
 format: html
 execute: 
+  echo: false
   warning: false
   message: false
 ---
 
-```{r}
-library(tidyverse)
-```
-
 ### Step 1: Research Question and Context
 
-In this project, I investigate whether male and female reviewers give different IMDb ratings to TV shows. I use the “IMDb_Economist_tv_ratings.csv” dataset from the TidyTuesday project (Week 2, 2019). This dataset contains TV show titles, average IMDb ratings, and air dates collected by The Economist from IMDb.
+In this project, I investigate whether IMDb ratings for TV shows differ between male-identifying and female-identifying reviewers in the larger population of TV viewers, not just in this dataset. The “IMDb_Economist_tv_ratings.csv” dataset comes from The Economist (via TidyTuesday Week 2, 2019) and includes TV show titles, average IMDb ratings, and gender-split rating data.
 
-My goal is to simulate a null model in which reviewer gender has no relationship with rating. To do this, I will assign random gender labels to reviewers, calculate mean differences, and build a null sampling distribution. By comparing the observed mean difference to the null distribution, I can assess how likely the observed difference would be if gender had no effect on ratings.
+We want to understand whether the small differences observed in this dataset could reasonably occur from random chance alone. To answer this, we simulate a world where gender has no role in how people rate TV shows. Under that null hypothesis, any difference we see in average ratings would simply be due to natural variability from sample to sample.
+
+Our goal:\
+“Is the difference we observe in our dataset larger than we would normally expect if the underlying rating tendency were the same for everyone?”
 
 ### Step 2: Setup and Data Cleaning
 
 ```{r}
+library(tidyverse)
 
 tv <- read_csv("IMDb_Economist_tv_ratings.csv")
-
-view(tv)
 
 #constructing the gender comparison dataset
 
@@ -90,10 +89,18 @@ perm_results |>
 
 ### Step 3: Interpretation:
 
-The histogram displays the null sampling distribution of mean rating differences when gender labels are randomly shuffled. The orange dashed line marks the observed difference. If this observed difference lies far in the tails of the distribution, the result would be unlikely under the null hypothesis, suggesting that gender may indeed be related to average ratings.
+The histogram shows what differences in average ratings we would expect just by chance if gender were unrelated to TV show ratings in the broader viewer population. The orange dashed line marks the difference we observed in the dataset. Because the observed value lies near the center of the simulated null distribution, differences of this size would be very common even if gender truly had no effect. Therefore, our observed difference is not unusual under the null hypothesis.
 
 ### Step 4: Conclusions
 
-I conducted a permutation test to assess whether average IMDb ratings differ by reviewer gender. The simulation randomly reassigned gender labels and calculated 5,000 permuted differences, generating a null distribution. Comparing the observed difference to this distribution provided a p-value representing how unusual the observed data would be if gender and ratings were independent.
+This permutation test evaluates whether the difference in TV show ratings between male and female reviewers seen in this dataset is larger than what would be expected from normal random variation. Because the observed difference aligns closely with the null distribution, we do not have evidence that rating tendencies differ by gender in the broader population of IMDb users. This does not prove that gender will never matter, rather, based on the dataset available, any differences we observe could easily be explained by chance alone.
 
-The permutation distribution is centered around 0, and our observed difference lies near that center rather than in the tails. This suggests that any small difference in average ratings by gender could easily occur by random chance if gender and ratings are unrelated. Therefore, we find no evidence to suggest that reviewer gender influences IMDb ratings for TV shows.
+### References
+
+Hickey, D. (2019). *TidyTuesday: IMDb TV ratings by gender* [Data set].  
+GitHub – rfordatascience/tidytuesday.  
+Retrieved from https://github.com/rfordatascience/tidytuesday/blob/master/data/2019/2019-01-08/readme.md
+
+The Economist. (2018, December). *Who rates TV shows?*  
+Retrieved from https://www.economist.com/graphic-detail/2018/12/18/who-rates-tv-shows
+
