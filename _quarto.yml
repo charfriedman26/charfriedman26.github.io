@@ -25,6 +25,8 @@ website:
             text: ethics and power
           - href: sql_traffic_stops.html
             text: sql traffic stops
+          - href: diving.html
+            text: diving analysis using shiny
 #      - about.qmd
 #      - resources.qmd
 

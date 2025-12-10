@@ -1,0 +1,208 @@
+---
+title: "diving"
+description: |
+  project 6 - diving analysis
+author: charlotte friedman
+date: December 9, 2025
+format: html
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+### Diving + Shiny!
+
+This project uses Data Science and interactive graphics to explore my performance as a springboard diver. Data comes directly from my DiveMeets profile and includes:
+
+-   Dive codes
+-   Dive descriptions
+-   High score and average score
+-   How many times I’ve competed each dive
+-   Dive group (Forward, Back, Reverse, Inward, Twist)
+
+The project uses:
+
+-   R web scraping (rvest)
+-   Data cleaning and wrangling (dplyr)
+-   Shiny interactive visualization (ggplot + reactive filtering)
+
+### Step 1 - Import and Scrape My Dive Stats
+
+I read data directly from DiveMeets using rvest, which converts HTML table data into an R data frame.
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(rvest)
+library(purrr)
+library(praise)
+library(robotstxt)
+library(stringr)
+
+# url
+
+url <- "https://secure.meetcontrol.com/divemeets/system/profile.php?number=67809"
+
+# checking if this is allowed
+
+try(paths_allowed("https://secure.meetcontrol.com/divemeets/system/profile.php?number=67809"))
+
+# 1 - read html and grab all tables on page
+
+page <- read_html(url)
+
+tables <- page |>  html_table(fill = TRUE)
+
+# 2 - see what tables i got
+
+length(tables)
+
+# 3 - view the column names of each table to find the one with my dive stats
+
+map(tables, ~ colnames(.x))
+
+
+```
+
+### Step 2 - Select and Clean the Dive Table
+
+DiveMeets had some formatting quirks, so I:
+
+-   removed repeated header rows
+-   corrected misplaced score columns
+-   kept only useful columns
+
+```{r}
+#| echo: false
+
+# 4 - select the dives table
+dives_raw <- tables[[3]]
+
+# take a quick look !
+glimpse(dives_raw)
+
+
+# renaming cols to something simpler
+colnames(dives_raw) <- c("dive_height", "description", "high_score", "avg_score", "n_times", "NAcol")
+```
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+library(stringr)
+library(readr)
+
+dives <- dives_raw |> 
+  # 1. Drop the header / title rows
+  filter(
+    dive_height != "Dive Statistics",
+    dive_height != "Dive & Height"
+  ) |> 
+  # 2. Put the numbers in the right places
+  #    (on this page: High Score numbers are in avg_score,
+  #     Avg Score numbers are in n_times,
+  #     # of Times are in NAcol)
+  mutate(
+    high_score = parse_number(avg_score),   # High Score
+    avg_score  = parse_number(n_times),     # Avg Score
+    n_times    = parse_integer(NAcol)       # # of Times
+  ) |> 
+  # 3. Keep only the useful columns
+  select(dive_height, description, high_score, avg_score, n_times)
+
+glimpse(dives)
+
+```
+
+### Step 3 - Add Dive Group Categories
+
+Every dive code’s first digit tells the group:\
+
+1 = Forward, 2 = Back, 3 = Reverse, 4 = Inward, 5 = Twist
+
+```{r}
+#| echo: false
+#adding in dive group column
+
+dives <- dives |> 
+  mutate(
+    code_first = str_sub(dive_height, 1, 1),
+    group = recode(
+      code_first,
+      "1" = "Forward",
+      "2" = "Back",
+      "3" = "Reverse",
+      "4" = "Inward",
+      "5" = "Twist",
+      .default = NA_character_
+    )
+  ) |> 
+  filter(!is.na(group))
+
+glimpse(dives)
+
+```
+
+### Extra Credit: Shiny Interactive Plot!
+
+I expanded this project with Shiny, which updates the visualization instantly based on user input.\
+
+Users can choose a dive group and explore my average scores dynamically.
+
+This demonstrates:
+
+-   The Shiny UI + server reactive framework
+-   Interactive filtering of *my* real athletic stats
+-   ggplot updating automatically based on selections
+
+```{r}
+
+library(shiny)
+library(tidyverse)
+
+ui <- fluidPage(
+  titlePanel("Interactive Dive Score Explorer"),
+
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        "group_choice",
+        "Choose a dive group:",
+        choices = sort(unique(dives$group)),
+        selected = "Forward"
+      )
+    ),
+
+    mainPanel(
+      plotOutput("scorePlot")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+  filtered <- reactive({
+    dives |>  filter(group == input$group_choice)
+  })
+
+  output$scorePlot <- renderPlot({
+    ggplot(filtered(),
+           aes(x = reorder(dive_height, avg_score),
+               y = avg_score,
+               fill = dive_height)) +
+      geom_col() +
+      coord_flip() +
+      labs(
+        title = paste("Average Score —", input$group_choice, "Dives"),
+        x = "Dive Code",
+        y = "Average Score"
+      ) +
+      theme_minimal() +
+      theme(legend.position = "none")
+  })
+}
+
+shinyApp(ui, server)
+```
