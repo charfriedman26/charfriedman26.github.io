@@ -14,6 +14,8 @@ execute:
 This data set comes from the spotifyr R package, which is an API wrapper for Spotify’s Web API. It provides track-level and artist-level audio feature data that can be accessed directly from Spotify. The visualization displays the relationship between the average duration of the song by each year. It shows the average song length data for each year from prior to 1960 until 2020.
 
 ```{r}
+#| label: average_song_duration
+#| fig-alt: "Line chart showing the average duration of Spotify songs from the 1960s to 2020, rising sharply through the 1970s, leveling off around 4–5 minutes for several decades, and declining after 2010."
 
 library(readr)
 library(ggplot2)
@@ -30,7 +32,6 @@ spotify_songs |>
   ggplot(aes(x = year, y = mean_duration)) +
   geom_line() +
   labs(y = "Duration (minutes)", title = "Average song duration over time")
-  
 ```
 
 Data Accessed From:
