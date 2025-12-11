@@ -20,6 +20,8 @@ taylor_all_songs <- read_csv("taylor_all_songs.csv")
 ```
 
 ```{r}
+#| label: taylor_scatterplot
+#| fig-alt: "Scatterplot showing the danceability and energy scores of all Taylor Swift songs, with each point colored by album. Most songs cluster between moderate to high danceability and energy, with variation across albums."
 
 library(ggplot2)
 
@@ -31,7 +33,6 @@ taylor_all_songs |>
     x = "Danceability", 
     y = "Energy"
   ) + theme_gray()
-
 ```
 
 Data Accessed From:
