@@ -69,6 +69,7 @@ Hashtags help reveal Obama’s messaging priorities. The most common hashtags in
 
 ```{r}
 
+
 #| label: top_hashtags_obama_tweets
 #| fig-alt: "Bar chart showing Obama's ten most frequently used hashtags, with policy-related hashtags dominating the list."
 
