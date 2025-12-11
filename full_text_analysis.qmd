@@ -43,16 +43,14 @@ obama_clean <- read_csv("tweets.csv") |>
     # convert timestamp to Date
     date = as.Date(timestamp)
   )
-
 ```
 
 The frequency of Obama’s tweets changes over time. There are visible spikes during major political moments such as elections, major speeches, and legislative pushes. This suggests Twitter served as a strategic communication tool rather than a constant personal feed, activity increased when public engagement was most important.
 
 ```{r}
 
-#graphing!
-
-colnames(obama_clean)
+#| label: obama_tweets_over_time
+#| fig-alt: "Line chart showing how Obama's tweet frequency changed over time, with clear spikes during major political events"
 
 obama_clean |> 
   mutate(date = as.Date(timestamp)) |> 
@@ -64,11 +62,15 @@ obama_clean |>
     x = "Date",
     y = "Number of Tweets"
   )
+
 ```
 
 Hashtags help reveal Obama’s messaging priorities. The most common hashtags include policy topics such as #obamacare, #education, and #climatechange, emphasizing the administration’s key legislative and advocacy themes. Their high frequency indicates that social media played a role in promoting government initiatives and shaping public conversation around policy values.
 
 ```{r}
+
+#| label: top_hashtags_obama_tweets
+#| fig-alt: "Bar chart showing Obama's ten most frequently used hashtags, with policy-related hashtags dominating the list."
 
 obama_clean |> 
   unnest(hashtags) |> 
