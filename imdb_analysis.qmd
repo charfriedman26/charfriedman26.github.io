@@ -23,6 +23,10 @@ Our goal:\
 ### Step 2: Setup and Data Cleaning
 
 ```{r}
+#| label: sampling_dist_under_mean
+#| fig-alt: "Histogram showing the sampling distribution of simulated differences in mean ratings under the null hypothesis, centered near zero, with a dashed vertical line marking the observed difference"
+
+
 library(tidyverse)
 
 tv <- read_csv("IMDb_Economist_tv_ratings.csv")
@@ -84,7 +88,6 @@ perm_results |>
     title = "Sampling distribution under the null hypothesis",
     subtitle = "No relationship between reviewer gender and rating"
   )
-
 ```
 
 ### Step 3: Interpretation:
